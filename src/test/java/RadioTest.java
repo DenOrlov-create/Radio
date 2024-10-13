@@ -103,4 +103,63 @@ public class RadioTest {
         Assertions.assertEquals(expected, actual);
     }
 
+
+    @Test
+    void testNextStation() {
+        Radio radio = new Radio();
+        radio.nextStation();
+        Assertions.assertEquals(1, radio.getRadioStationNumber());
+
+
+        for (int i = 0; i < 9; i++) {
+            radio.nextStation();
+        }
+        Assertions.assertEquals(0, radio.getRadioStationNumber());
+    }
+
+    @Test
+    void testNextVolume() {
+        Radio radio = new Radio();
+        radio.nextVolume();
+        Assertions.assertEquals(1, radio.getVolume());
+
+
+        for (int i = 0; i < 99; i++) {
+            radio.nextVolume();
+        }
+        Assertions.assertEquals(100, radio.getVolume());
+        radio.nextVolume();
+        Assertions.assertEquals(100, radio.getVolume());
+    }
+
+    @Test
+    void testPrevStation() {
+        Radio radio = new Radio();
+        radio.prevStation();
+        Assertions.assertEquals(9, radio.getRadioStationNumber());
+
+        radio.nextStation();
+        radio.prevVolume();
+        Assertions.assertEquals(0, radio.getRadioStationNumber());
+    }
+
+    @Test
+    public void testPrevStation_WhenStationIsGreaterThanZero() {
+        Radio radio = new Radio();
+        radio.setRadioStationNumber(5);
+        radio.prevStation();
+        Assertions.assertEquals(4, radio.getRadioStationNumber());
+    }
+
+
+    @Test
+    void testPrevVolume() {
+        Radio radio = new Radio();
+        radio.prevVolume();
+        Assertions.assertEquals(0, radio.getVolume());
+
+        radio.nextVolume();
+        radio.prevVolume();
+        Assertions.assertEquals(0, radio.getVolume());
+    }
 }
